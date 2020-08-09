@@ -7,6 +7,7 @@ $(document).ready(function () {
   const $p = $("p");
 
   let qIndex = 0;
+  let highscore = []
   let quesArr = [
     {
       q: [
@@ -69,8 +70,15 @@ $(document).ready(function () {
     let ind = this.getAttribute("index");
     console.log(typeof parseInt(ind));
     console.log(typeof quesArr[qIndex].answer + "i am answer");
+    qIndex++;
 
-    if (parseInt(ind) === quesArr[qIndex].answer) {
+
+    if (qIndex === quesArr.length){
+        // display the highscore screen
+        alert('you\'re done')
+        return
+    }
+    else if (parseInt(ind) === quesArr[qIndex].answer) {
       $pCheck.empty();
       $pCheck.append(
         $("<div>")
@@ -78,8 +86,13 @@ $(document).ready(function () {
           .attr("role", "alert")
           .text("correct")
       );
+      setTimeout(function(){
+          $pCheck.empty();
+      }, 1000);
+
       // class="alert alert-light" role="alert"
-    } else {
+    }
+    else {
       $pCheck.empty();
       $pCheck.append(
         $("<div>")
@@ -87,8 +100,13 @@ $(document).ready(function () {
           .attr("role", "alert")
           .text("incorrect")
       );
+      setTimeout(function(){
+        $pCheck.empty();
+    }, 1000);
     }
-    qIndex++;
+
+
     createQuestion(qIndex);
+
   });
 });
