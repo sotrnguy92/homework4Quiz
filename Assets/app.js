@@ -47,6 +47,8 @@ $(document).ready(function () {
   });
 
   function createQuestion(qIndex) {
+    $jheading.empty();
+    $pLead.empty();
     $jheading.text(quesArr[qIndex].q[0]);
     $ulist = $("<ul>").addClass("list-group list-group-flush");
     $pLead.append($ulist);
@@ -86,5 +88,7 @@ $(document).ready(function () {
           .text("incorrect")
       );
     }
+    qIndex++;
+    createQuestion(qIndex);
   });
 });
