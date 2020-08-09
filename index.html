@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript Quiz</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <header>
+        <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+            <h5 id="highscores" class="my-0 mr-md-auto font-weight-normal">View Highscores</h5>
+            <nav class="my-2 my-md-0 mr-md-3">
+              <span class="timer">time</span>
+            </nav>
+          </div>
+    </header>
+    <main>
+        <section class=" text-center">
+            <div class="container">
+                <h1 class="jumbotron-heading">Java Quiz</h1>
+                <p class="lead">This quiz will test your knowledge of javascript and jquery. You will be given 100
+                    seconds to complete the quiz. For every question you get incorrect, 10 seconds will be deducted from
+                    the remaining time. Press the start button when you are ready.
+                <p>
+                    <button id="start" class="btn btn-primary my-2">Start</button>
+                </p>
+            </div>
+        </section>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="./Assets/app.js"></script>
+</body>
+
+</html>
