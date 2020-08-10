@@ -7,7 +7,8 @@ $(document).ready(function () {
   const $p = $("p");
 
   let qIndex = 0;
-  let highscore = []
+  let timer = 100;
+  let highscore = [];
   let quesArr = [
     {
       q: [
@@ -17,7 +18,7 @@ $(document).ready(function () {
         "<script>",
         "<scripting>",
       ],
-      answer: 2,
+      answer: 3,
     },
     {
       q: [
@@ -30,22 +31,32 @@ $(document).ready(function () {
       answer: 1,
     },
     {
-        q: [
-            'What is the correct syntax for referring to an external script called "xxx.js"?',
-            "<script name = 'xxx.js'>",
-            "<script href = 'xxx.js'>",
-            "<script class = 'xxx.js'>",
-            "<script src = 'xxx.js'>",
-        ],
-        answer: 4
-    }
+      q: [
+        'What is the correct syntax for referring to an external script called "xxx.js"?',
+        "<script name = 'xxx.js'>",
+        "<script href = 'xxx.js'>",
+        "<script class = 'xxx.js'>",
+        "<script src = 'xxx.js'>",
+      ],
+      answer: 4,
+    },
   ];
 
   $start.on("click", function () {
     $jheading.empty();
     $p.empty();
+    setTimer();
     createQuestion(qIndex);
   });
+
+  function setTimer() {
+    setInterval(function () {
+      if (timer != 0 && qIndex != quesArr.length) {
+        timer = timer - 1;
+        $(".timer").text("Time: " + timer);
+      }
+    }, 1000);
+  }
 
   function createQuestion(qIndex) {
     $jheading.empty();
@@ -68,17 +79,8 @@ $(document).ready(function () {
   $(".container").on("click", "button.answer", function () {
     event.stopPropagation();
     let ind = this.getAttribute("index");
-    console.log(typeof parseInt(ind));
-    console.log(typeof quesArr[qIndex].answer + "i am answer");
-    qIndex++;
 
-
-    if (qIndex === quesArr.length){
-        // display the highscore screen
-        alert('you\'re done')
-        return
-    }
-    else if (parseInt(ind) === quesArr[qIndex].answer) {
+    if (parseInt(ind) === quesArr[qIndex].answer) {
       $pCheck.empty();
       $pCheck.append(
         $("<div>")
@@ -86,13 +88,11 @@ $(document).ready(function () {
           .attr("role", "alert")
           .text("correct")
       );
-      setTimeout(function(){
-          $pCheck.empty();
+      setTimeout(function () {
+        $pCheck.empty();
       }, 1000);
-
-      // class="alert alert-light" role="alert"
-    }
-    else {
+      qIndex++;
+    } else {
       $pCheck.empty();
       $pCheck.append(
         $("<div>")
@@ -100,13 +100,19 @@ $(document).ready(function () {
           .attr("role", "alert")
           .text("incorrect")
       );
-      setTimeout(function(){
+      setTimeout(function () {
         $pCheck.empty();
-    }, 1000);
+      }, 1000);
+      timer = timer - 10;
+      $(".timer").text("Time: " + timer);
+      qIndex++;
     }
-
-
-    createQuestion(qIndex);
-
+    if (qIndex === quesArr.length) {
+      // display the highscore screen
+      alert("you're done");
+      return;
+    } else if (qIndex < quesArr.length) {
+      createQuestion(qIndex);
+    }
   });
 });
