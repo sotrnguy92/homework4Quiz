@@ -49,7 +49,7 @@ $(document).ready(function () {
     createQuestion(qIndex);
   });
 
-  function setTimer() {
+  let setTimer = function() {
     setInterval(function () {
       if (timer != 0 && qIndex != quesArr.length) {
         timer = timer - 1;
@@ -92,7 +92,8 @@ $(document).ready(function () {
         $pCheck.empty();
       }, 1000);
       qIndex++;
-    } else {
+    } 
+    else {
       $pCheck.empty();
       $pCheck.append(
         $("<div>")
@@ -110,9 +111,29 @@ $(document).ready(function () {
     if (qIndex === quesArr.length) {
       // display the highscore screen
       alert("you're done");
+      $jheading.text('All Done!');
+      $pLead.text('Your score is: ' + timer);
+      $pLead.append('</br> Your Initials <input type="text" id="myText" >');
+      $pLead.append($('<button>').addClass('submit').text('Submit'));
+      $(document).on('click', 'button.submit', function(){
+        event.stopPropagation();
+        scoreScreen();
+      })
+
       return;
-    } else if (qIndex < quesArr.length) {
+    } 
+    else if (qIndex < quesArr.length) {
       createQuestion(qIndex);
     }
   });
+
+  function scoreScreen(){
+    let currentScore = {}
+    currentScore['initials'] = $('#myText').val();
+    currentScore['score'] = timer;
+    highscore.push(currentScore);
+    console.log(highscore);
+  }
+  
 });
+
