@@ -49,14 +49,14 @@ $(document).ready(function () {
     createQuestion(qIndex);
   });
 
-  let setTimer = function() {
+  let setTimer = function () {
     setInterval(function () {
       if (timer != 0 && qIndex != quesArr.length) {
         timer = timer - 1;
         $(".timer").text("Time: " + timer);
       }
     }, 1000);
-  }
+  };
 
   function createQuestion(qIndex) {
     $jheading.empty();
@@ -92,8 +92,7 @@ $(document).ready(function () {
         $pCheck.empty();
       }, 1000);
       qIndex++;
-    } 
-    else {
+    } else {
       $pCheck.empty();
       $pCheck.append(
         $("<div>")
@@ -110,43 +109,53 @@ $(document).ready(function () {
     }
     if (qIndex === quesArr.length) {
       // display the highscore screen
-      alert("you're done");
-      $jheading.text('All Done!');
-      $pLead.text('Your score is: ' + timer);
+      $jheading.text("All Done!");
+      $pLead.text("Your score is: " + timer);
       $pLead.append('</br> Your Initials <input type="text" id="myText" >');
-      $pLead.append($('<button>').addClass('submit').text('Submit'));
-      $(document).on('click', 'button.submit', function(){
+      $('input').val('');
+      $pLead.append($("<button>").addClass("submit").text("Submit"));
+      $(document).on("click", "button.submit", function () {
         event.stopPropagation();
         scoreScreen();
-      })
+      });
 
       return;
-    } 
-    else if (qIndex < quesArr.length) {
+    } else if (qIndex < quesArr.length) {
       createQuestion(qIndex);
     }
   });
 
-  function scoreScreen(){
-    let currentScore = {}
-    currentScore['initials'] = $('#myText').val();
-    currentScore['score'] = timer;
+  function scoreScreen() {
+    let currentScore = {};
+    currentScore["initials"] = $("#myText").val();
+    currentScore["score"] = timer;
     highscore.push(currentScore);
-    console.log(highscore);
     viewScores();
   }
 
-  function viewScores(){
-    const $ul = $('<ul>').addClass("list-group list-group-flush");
+  function viewScores() {
+    const $ul = $("<ul>").addClass("list-group list-group-flush");
     $jheading.text("Highscores");
     $pLead.empty();
-    highscore.forEach(element => {
-      const $li = $('<li>').addClass('badge list-group-item text-left')
+    highscore.forEach((element) => {
+      if(element.initials != undefined){
+      const $li = $("<li>").addClass("badge list-group-item text-left");
       $ul.append($li.append(element.initials + ": " + element.score));
-    });
-    $pLead.append($ul);
-
   }
-  
 });
-
+    $pLead.append($ul);
+    $pLead.append($("<button>").addClass("restart").text("Restart"));
+    $(document).on("click", "button.restart", function () {
+      event.stopPropagation();
+      qIndex = 0;
+      timer = 100;
+      createQuestion(qIndex);
+    });
+    $pLead.append($("<button>").addClass("clear").text("Clear Scores"));
+    $(document).on("click", "button.clear", function () {
+      event.stopPropagation();
+      highscore = [];
+      viewScores(qIndex);
+    });
+  }
+});
