@@ -133,6 +133,19 @@ $(document).ready(function () {
     currentScore['score'] = timer;
     highscore.push(currentScore);
     console.log(highscore);
+    viewScores();
+  }
+
+  function viewScores(){
+    const $ul = $('<ul>').addClass("list-group list-group-flush");
+    $jheading.text("Highscores");
+    $pLead.empty();
+    highscore.forEach(element => {
+      const $li = $('<li>').addClass('badge list-group-item text-left')
+      $ul.append($li.append(element.initials + ": " + element.score));
+    });
+    $pLead.append($ul);
+
   }
   
 });
