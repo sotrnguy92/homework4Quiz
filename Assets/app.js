@@ -158,4 +158,11 @@ $(document).ready(function () {
       viewScores(qIndex);
     });
   }
+  $(document).on("click", "h5.highscores", function () {
+    event.stopPropagation();
+    qIndex = quesArr.length;
+    viewScores(qIndex);
+  });
+
+
 });
